@@ -1,0 +1,214 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #243782;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  background-color: #243782;
+  color: white;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1a2b61;
+}
+/* Adicionar ao seu Formulario.css */
+
+/* ... seu CSS existente ... */
+
+.resumo-form-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9fafb; /* Tailwind gray-50 */
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  border-radius: 8px;
+}
+
+.resumo-info-counts {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #eef2ff; /* Tailwind indigo-50 */
+  border-radius: 6px;
+}
+.resumo-info-counts p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+.count-red {
+  font-weight: bold;
+  color: #ef4444; /* Tailwind red-500 */
+}
+.count-orange {
+  font-weight: bold;
+  color: #f97316; /* Tailwind orange-500 */
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Para incluir padding e border na largura total */
+  min-height: 80px;
+  font-family: inherit;
+  font-size: 1em;
+}
+
+.button-secondary {
+  background-color: #6b7280; /* Tailwind gray-500 */
+}
+.button-secondary:hover {
+  background-color: #4b5563; /* Tailwind gray-600 */
+}
+
+
+/* css versão tabela */
+/* Adicionar/Ajustar no seu Formulario.css */
+
+/* ... seu CSS existente ... */
+
+.table-responsive-container {
+  width: 100%;
+  overflow-x: auto; /* Permite scroll horizontal na tabela em telas pequenas */
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  border-radius: 8px;
+}
+
+.registro-table {
+  width: 100%;
+  min-width: 800px; /* Largura mínima para evitar quebra excessiva de colunas */
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.registro-table th,
+.registro-table td {
+  border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 0.9em;
+  vertical-align: top; /* Alinha conteúdo da célula ao topo */
+}
+
+.registro-table th {
+  background-color: #f3f4f6; /* Tailwind gray-100 */
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap; /* Evita quebra de linha nos cabeçalhos dos dias */
+  position: sticky; /* Para cabeçalho da tabela fixo no topo ao rolar verticalmente (se a tabela for muito longa) */
+  top: 0;
+  z-index: 10;
+}
+.table-header-subtitle {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #6b7280; /* Tailwind gray-500 */
+}
+
+
+.sticky-col {
+  position: sticky;
+  left: 0;
+  background-color: #f9fafb; /* Tailwind gray-50, ou a cor de fundo da linha */
+  z-index: 5; /* Abaixo do cabeçalho da tabela se também for sticky */
+  min-width: 200px; /* Largura mínima para a coluna de nome do facto */
+  max-width: 300px;
+  white-space: normal; /* Permite quebra de linha no nome do facto */
+}
+.registro-table tbody tr:hover .sticky-col {
+    background-color: #eff6ff; /* Tailwind blue-50, um pouco mais escuro no hover */
+}
+
+
+.fato-nome-cell {
+  font-weight: 500;
+  color: #1f2937; /* Tailwind gray-800 */
+}
+.limites-info {
+  font-size: 0.8em;
+  color: #6b7280; /* Tailwind gray-500 */
+  margin-top: 4px;
+}
+
+.input-cell {
+  text-align: center;
+}
+
+.input-cell .form-input {
+  width: calc(100% - 10px); /* Ajustar largura para caber no padding da célula */
+  max-width: 100px; /* Largura máxima para os inputs de valor/correção */
+  margin: 2px auto; /* Espaçamento e centralização */
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.input-valor {
+  margin-bottom: 5px !important; /* Adiciona espaço entre valor e correção */
+}
+
+.input-correcao {
+  font-size: 0.85em;
+}
+
+/* Ajustar .form-input para que as cores de fundo funcionem bem */
+.form-input {
+  padding: 6px 8px; /* Reduzir um pouco o padding para caber melhor na célula */
+  border-radius: 4px;
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+}
+
+/* Cores de fundo para os inputs de valor (já definidas anteriormente, verificar se precisam de ajuste) */
+.form-input-green { background-color: #d1fae5; border-color: #6ee7b7; }
+.form-input-orange { background-color: #ffedd5; border-color: #fdba74; }
+.form-input-red { background-color: #fee2e2; border-color: #fca5a5; }
+.form-input-gray { background-color: #f3f4f6; }
+.form-input-error { background-color: #fee2e2; border-color: #ef4444; color: #b91c1c; }

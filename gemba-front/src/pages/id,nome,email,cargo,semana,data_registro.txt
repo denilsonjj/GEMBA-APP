@@ -1,0 +1,20 @@
+id,nome,email,cargo,semana,data_registro,fato,dia,valor
+1,Denilson,denilson@email.com,Team Leader,20,2025-05-14,Absenteísmo,Segunda,1
+2,Denilson,denilson@email.com,Team Leader,20,2025-05-14,Desvios Segurança,Terça,0
+3,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Absenteísmo,Segunda,2
+4,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios Segurança,Segunda,3
+5,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,E.W.O,Segunda,1
+6,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Ordens de serviço,Segunda,1
+7,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Pendências emergenciais,Segunda,5
+8,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Ordens não realizadas,Segunda,1
+9,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios clima social,Segunda,1
+10,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios energia (AR/Água/Gás),Segunda,1
+11,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Anomalias de máquina,Segunda,1
+12,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios 5S,Segunda,1
+13,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios Tablão AM,Segunda,1
+14,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios Segurança recorrentes,Segunda,1
+15,denilson,juniordenilson363@gmail.com,Team Leader,1,2025-05-14,Desvios Management Control,Terça,1
+16,lukon,lukon20@gmail.com,PMS,2,2025-05-14,E.W.O,Segunda,1
+17,lukon,lukon20@gmail.com,PMS,2,2025-05-14,Pendências emergenciais,Segunda,1
+18,denilson barbosa de figueiredo junior,juniordenilson363@gmail.com,pms,3,2025-05-14,anomalia,22,1
+19,denilson barbosa de figueiredo junior,juniordenilson363@gmail.com,pms,3,2025-05-14,anomalia 2,2,1

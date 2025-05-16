@@ -1,0 +1,214 @@
+/* GerenciarFatos.css com Paleta Stellantis */
+
+/* Cores de referência (para consulta)
+   BLUE: '#243782',
+   TANGERINE: '#e94e24',
+   MINT: '#43aaa0',
+   ORANGE: '#eca935',
+   ANTHRACITE: '#282b34',
+   TEXT_LIGHT: '#ffffff',
+   LIGHT_GRAY_BG: '#f8f9fa',
+   MEDIUM_GRAY_BORDER: '#ced4da',
+   FEEDBACK_SUCCESS_BG: '#e0f2f1', /* MINT claro para fundo de sucesso */
+   /*FEEDBACK_ERROR_BG: '#fdecea',   /* TANGERINE claro para fundo de erro */
+
+
+.gerenciar-fatos-container {
+  max-width: 800px;
+  margin: 30px auto; /* Aumentar margem superior/inferior */
+  padding: 25px; /* Aumentar padding */
+  background-color: #f8f9fa; /* LIGHT_GRAY_BG */
+  border-radius: 10px;
+  border: 1px solid #dee2e6; /* Cinza claro para borda */
+  font-family: Arial, sans-serif; /* Considerar fonte Stellantis */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.gerenciar-fatos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Mais espaço */
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0; /* Cinza mais claro */
+}
+
+.gerenciar-fatos-header h2 {
+  color: #243782; /* BLUE */
+  font-size: 1.9em; /* Título maior */
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Botão Voltar (reutilizar estilo do ListaResumos.css se for o mesmo) */
+.button-voltar { 
+  padding: 10px 20px;
+  background-color: #6c757d; /* Cinza secundário */
+  color: #ffffff; /* TEXT_LIGHT */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.button-voltar:hover {
+  background-color: #5a6268; /* Cinza mais escuro */
+}
+
+.lista-fatos-editaveis {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Mais espaço entre cada item de facto */
+}
+
+.fato-editavel-item {
+  padding: 20px; /* Mais padding interno */
+  background-color: #ffffff; /* TEXT_LIGHT */
+  border: 1px solid #d1d5db; /* Cinza um pouco mais escuro */
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.06); /* Sombra mais suave */
+}
+
+.fato-nome-input {
+  margin-bottom: 18px; /* Mais espaço */
+}
+
+.fato-nome-input label,
+.limite-input-group label {
+  display: block;
+  margin-bottom: 6px; /* Mais espaço */
+  font-weight: 500;
+  color: #282b34; /* ANTHRACITE */
+  font-size: 0.95em; /* Ligeiramente maior */
+}
+
+.form-input-manage {
+  width: 100%;
+  padding: 10px 12px; /* Mais padding */
+  border-radius: 6px;
+  border: 1px solid #ced4da; /* MEDIUM_GRAY_BORDER */
+  box-sizing: border-box;
+  font-size: 1em; /* Tamanho de fonte padrão */
+  color: #282b34; /* ANTHRACITE */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-input-manage:focus {
+  border-color: #243782; /* BLUE */
+  box-shadow: 0 0 0 0.2rem rgba(36, 55, 130, 0.25); /* Sombra de foco BLUE */
+}
+
+.form-input-manage.input-limite {
+  max-width: 130px; /* Um pouco mais de largura para inputs de limite */
+}
+
+.limites-inputs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px; /* Mais espaço */
+  margin-bottom: 18px;
+}
+
+.limite-input-group {
+  flex: 1; 
+  min-width: 130px; /* Ajustar com max-width do input-limite */
+}
+
+.fato-actions {
+  margin-top: 15px;
+  text-align: right; 
+}
+
+.button-guardar-fato {
+  padding: 10px 20px; /* Botão maior */
+  background-color: #243782; /* BLUE */
+  color: #ffffff; /* TEXT_LIGHT */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em; /* Ligeiramente maior */
+  font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.button-guardar-fato:hover {
+  background-color: #1c2b66; /* BLUE mais escuro */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.button-guardar-fato:disabled {
+  background-color: #adb5bd !important; 
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.feedback-message-fato {
+  margin-top: 12px; /* Mais espaço */
+  padding: 10px 12px; /* Mais padding */
+  border-radius: 6px; /* Consistente com outros elementos */
+  font-size: 0.9em; 
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Mais espaço para o ícone */
+  border-width: 1px;
+  border-style: solid;
+}
+.feedback-message-fato.success {
+  background-color: #e0f2f1; /* MINT claro (FEEDBACK_SUCCESS_BG) */
+  color: #004d40; /* MINT escuro */
+  border-color: #43aaa0; /* MINT */
+}
+.feedback-message-fato.error {
+  background-color: #fdecea; /* TANGERINE claro (FEEDBACK_ERROR_BG) */
+  color: #c5300b; /* TANGERINE escuro */
+  border-color: #e94e24; /* TANGERINE */
+}
+.feedback-icon {
+  width: 1.2em; /* Ícone um pouco maior */
+  height: 1.2em;
+}
+
+/* Mensagens de feedback globais (reutilizar se possível) */
+.loading-message, .error-message.global-error-message, .info-message {
+  padding: 12px 15px;
+  margin: 20px 0;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1em;
+  border-width: 1px;
+  border-style: solid;
+}
+/* ... (copiar estilos de .loading-message, .error-message, .info-message de outros CSS se necessário,
+       ou definir aqui com as cores da paleta) ... */
+.loading-message { background-color: #e6f7ff; color: #005f8e; border-color: #b3e0ff;}
+.error-message.global-error-message { background-color: #fdecea; color: #c5300b; border-color: #e94e24;} /* TANGERINE */
+.info-message { background-color: #f0f0f0; color: #555; border-color: #ddd; }
+
+
+@media (max-width: 600px) {
+  .gerenciar-fatos-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .gerenciar-fatos-header h2 {
+    font-size: 1.6em; /* Ajustar título para telemóvel */
+  }
+  .limites-inputs-container {
+    flex-direction: column; 
+    gap: 12px; /* Espaço entre inputs empilhados */
+  }
+  .form-input-manage.input-limite {
+    max-width: 100%; 
+  }
+  .fato-actions {
+    text-align: center; 
+  }
+  .button-guardar-fato {
+    width: 100%;
+    padding: 12px 20px; /* Botão maior em telemóvel */
+    font-size: 1em;
+  }
+  .fato-editavel-item {
+    padding: 15px; /* Menos padding no item em telemóvel */
+  }
+}

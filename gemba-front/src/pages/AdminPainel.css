@@ -1,0 +1,263 @@
+/* AdminPainel.css com Paleta Stellantis */
+
+/* Cores de referência (para consulta)
+   BLUE: '#243782',
+   TANGERINE: '#e94e24',
+   MINT: '#43aaa0',
+   ORANGE: '#eca935',
+   ANTHRACITE: '#282b34',
+   TEXT_LIGHT: '#ffffff',
+   LIGHT_GRAY_BG: '#f8f9fa',
+   MEDIUM_GRAY_BORDER: '#ced4da',
+   FEEDBACK_SUCCESS_BG: '#e0f2f1',
+   FEEDBACK_ERROR_BG: '#fdecea',
+   EXCEL_GREEN: '#27ae60', /* Verde para o botão Excel, pode ser MINT se preferir */
+   */
+
+   .admin-painel-container {
+     max-width: 1200px;
+     margin: 30px auto;
+     padding: 25px;
+     font-family: Arial, sans-serif; /* Considerar fonte Stellantis */
+     background-color: #f8f9fa; /* LIGHT_GRAY_BG */
+     border-radius: 10px;
+     border: 1px solid #dee2e6;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+   }
+   
+   .admin-painel-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 30px;
+     padding-bottom: 20px;
+     border-bottom: 1px solid #e0e0e0;
+   }
+   
+   .admin-painel-header h2 {
+     color: #243782; /* BLUE */
+     font-size: 1.9em;
+     margin: 0;
+     font-weight: 600;
+   }
+   
+   .button-voltar-admin { /* Reutilizar estilo se já definido globalmente ou em App.jsx */
+     padding: 10px 20px;
+     background-color: #6c757d; /* Cinza secundário */
+     color: #ffffff; /* TEXT_LIGHT */
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     font-size: 0.95em;
+     font-weight: 500;
+     transition: background-color 0.2s ease;
+   }
+   .button-voltar-admin:hover {
+     background-color: #5a6268; /* Cinza mais escuro */
+   }
+   
+   /* Mensagens de feedback no painel admin */
+   .admin-feedback {
+     padding: 12px 15px;
+     margin: 20px 0;
+     border-radius: 6px;
+     text-align: center;
+     font-size: 1em;
+     border-width: 1px;
+     border-style: solid;
+   }
+   .loading-message.admin-feedback { 
+     background-color: #e6f7ff; /* Azul claro */
+     color: #005f8e; 
+     border-color: #b3e0ff;
+   }
+   .error-message.admin-feedback { 
+     background-color: #fdecea; /* TANGERINE claro */
+     color: #c5300b; /* TANGERINE escuro */
+     border-color: #e94e24; /* TANGERINE */
+   }
+   .info-message.admin-feedback { 
+     background-color: #f0f0f0; 
+     color: #555; 
+     border-color: #ddd; 
+   }
+   
+   /* Contentor do Gráfico (mantido para estrutura, mesmo que o gráfico tenha sido removido) */
+   .grafico-admin-wrapper { 
+     margin-bottom: 40px;
+     padding: 20px;
+     background-color: #ffffff; /* TEXT_LIGHT */
+     border-radius: 8px;
+     border: 1px solid #e5e7eb;
+     box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+   }
+   .grafico-header { 
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 20px;
+   }
+   .grafico-header h3 { /* Usado para o título "Total de Ocorrências..." se o gráfico voltasse */
+     text-align: left;
+     margin-top: 0;
+     margin-bottom:0;
+     color: #243782; /* BLUE */
+     font-size: 1.5em; /* Ajustado */
+     font-weight: 600;
+   }
+   
+   /* Botão de Download Excel */
+   .admin-actions-container {
+     margin-bottom: 30px;
+     padding: 15px 0; 
+     text-align: center; 
+     border-bottom: 1px solid #e0e0e0; /* Separador mais suave */
+     padding-bottom: 30px; /* Mais espaço abaixo */
+   }
+   .button-download-excel {
+     padding: 12px 28px; /* Botão um pouco maior */
+     background-color: #43aaa0; /* MINT para o botão Excel */
+     color: #ffffff; /* TEXT_LIGHT */
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     font-size: 1.05em; /* Ligeiramente maior */
+     font-weight: bold;
+     transition: background-color 0.2s ease, box-shadow 0.2s ease;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+   }
+   .button-download-excel:hover {
+     background-color: #368a80; /* MINT mais escuro */
+     box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+   }
+   
+   /* Filtros da Tabela Admin */
+   .filtros-tabela-container.admin-filtros-tabela {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 20px;
+     margin-bottom: 25px;
+     padding: 18px; /* Mais padding */
+     background-color: #ffffff; 
+     border-radius: 8px;
+     border: 1px solid #e0e0e0; 
+     box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+   }
+   .filtro-item-admin {
+     display: flex;
+     flex-direction: column; 
+     gap: 6px; 
+     flex: 1; 
+     min-width: 220px; 
+   }
+   .filtro-label-admin {
+     font-weight: 500;
+     color: #282b34; /* ANTHRACITE */
+     font-size: 0.9em; 
+   }
+   .filtro-select-admin {
+     padding: 9px 12px; 
+     border-radius: 6px;
+     border: 1px solid #ced4da; /* MEDIUM_GRAY_BORDER */
+     background-color: #fff;
+     font-size: 0.95em; 
+     box-shadow: inset 0 1px 2px rgba(0,0,0,0.07);
+     width: 100%; 
+     box-sizing: border-box; 
+     color: #282b34; /* ANTHRACITE */
+   }
+   .filtro-select-admin:focus {
+     border-color: #243782; /* BLUE */
+     box-shadow: inset 0 1px 2px rgba(0,0,0,0.07), 0 0 0 0.2rem rgba(36, 55, 130, 0.25);
+   }
+   
+   
+   /* Tabela de Registos do Admin */
+   .tabela-registos-wrapper {
+     margin-top: 20px;
+   }
+   .tabela-registos-wrapper h3 {
+     text-align: center;
+     margin-bottom: 20px;
+     color: #243782; /* BLUE */
+     font-size: 1.5em; /* Ajustado */
+     font-weight: 600;
+   }
+   .table-responsive-container-admin {
+     overflow-x: auto;
+     border: 1px solid #d1d5db; /* Borda da tabela */
+     border-radius: 8px;
+     background-color: #ffffff; 
+   }
+   
+   .admin-registos-table {
+     width: 100%;
+     border-collapse: collapse;
+   }
+   .admin-registos-table th,
+   .admin-registos-table td {
+     padding: 10px 12px;
+     text-align: left;
+     font-size: 0.9em;
+     color: #282b34; /* ANTHRACITE */
+     border-bottom: 1px solid #e5e7eb; /* Linhas mais claras */
+   }
+   .admin-registos-table th {
+     background-color: #eaf1fb; /* Azul muito claro */
+     font-weight: 600;
+     text-transform: uppercase;
+     font-size: 0.85em;
+     color: #243782; /* BLUE */
+     border-bottom-width: 2px;
+     border-bottom-color: #243782; /* BLUE */
+   }
+   .admin-registos-table tbody tr:hover {
+     background-color: #f1f5f9; /* Cinza muito claro para hover */
+   }
+   
+   /* Estilos para Tabela Responsiva/Cartões no AdminPainel */
+   @media (max-width: 768px) {
+     .filtros-tabela-container.admin-filtros-tabela {
+       flex-direction: column; 
+       gap: 15px;
+     }
+     .filtro-item-admin {
+       min-width: 100%; 
+     }
+   
+     .admin-registos-table.responsive-table thead {
+       display: none;
+     }
+     .admin-registos-table.responsive-table tr {
+       display: block;
+       margin-bottom: 18px; /* Mais espaço entre cartões */
+       border: 1px solid #d1d5db; /* Borda do cartão */
+       border-radius: 8px;
+       background-color: #ffffff;
+       box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+       padding: 10px; /* Padding interno do cartão */
+     }
+     .admin-registos-table.responsive-table td {
+       display: block;
+       text-align: right;
+       padding: 8px 10px 8px 50%; /* Ajustar padding para label */
+       position: relative;
+       border-bottom: 1px dotted #e0e0e0; /* Linha separadora suave */
+     }
+     .admin-registos-table.responsive-table td:last-child {
+       border-bottom: none;
+     }
+     .admin-registos-table.responsive-table td::before {
+       content: attr(data-label);
+       position: absolute;
+       left: 10px;
+       width: calc(50% - 20px);
+       padding-right: 10px;
+       white-space: nowrap;
+       text-align: left;
+       font-weight: 600; /* Labels mais fortes */
+       color: #243782; /* BLUE para labels */
+       font-size: 0.9em;
+     }
+   }
+   
