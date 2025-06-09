@@ -1,0 +1,288 @@
+/* ListaResumos.css com Paleta Stellantis */
+
+/* Cores de referência (para consulta)
+   BLUE: '#243782',
+   TANGERINE: '#e94e24',
+   MINT: '#43aaa0',
+   ORANGE: '#eca935',
+   ANTHRACITE: '#282b34',
+   TEXT_LIGHT: '#ffffff',
+   LIGHT_GRAY_BG: '#f8f9fa',
+   MEDIUM_GRAY_BORDER: '#ced4da',
+*/
+
+.lista-resumos-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 25px; /* Um pouco mais de padding */
+  background-color: #f8f9fa; /* LIGHT_GRAY_BG */
+  border-radius: 10px;
+  border: 1px solid #dee2e6; /* Cinza claro para borda */
+  font-family: Arial, sans-serif; /* Considerar fonte Stellantis */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.lista-resumos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Mais espaço abaixo do cabeçalho */
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0; /* Cinza mais claro */
+}
+
+.lista-resumos-header h2 {
+  color: #243782; /* BLUE */
+  font-size: 1.9em; /* Título maior */
+  margin: 0;
+  font-weight: 600;
+}
+
+.button-voltar {
+  padding: 10px 20px; /* Padding ajustado */
+  background-color: #6c757d; /* Cinza secundário (pode ser ANTHRACITE se preferir mais escuro) */
+  color: #ffffff; /* TEXT_LIGHT */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.button-voltar:hover {
+  background-color: #5a6268; /* Cinza mais escuro */
+}
+
+/* Filtros */
+.filtros-grafico-container {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  margin-bottom: 30px; /* Mais espaço */
+  padding: 18px; /* Padding ajustado */
+  background-color: #ffffff; /* Fundo branco para destacar os filtros */
+  border-radius: 8px;
+  border: 1px solid #e0e0e0; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+}
+.filtro-item {
+  display: flex;
+  flex-direction: column; 
+  gap: 6px; 
+  flex: 1; 
+  min-width: 200px; /* Ajustar se necessário */
+}
+.filtro-label {
+  font-weight: 500;
+  color: #282b34; /* ANTHRACITE */
+  font-size: 0.9em; 
+  margin-bottom: 2px; 
+}
+.filtro-select { 
+  padding: 9px 12px; 
+  border-radius: 6px;
+  border: 1px solid #ced4da; /* MEDIUM_GRAY_BORDER */
+  background-color: #fff;
+  font-size: 0.95em; 
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.07);
+  width: 100%; 
+  box-sizing: border-box; 
+  color: #282b34; /* ANTHRACITE */
+}
+.filtro-select:focus {
+  border-color: #243782; /* BLUE */
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.07), 0 0 0 0.2rem rgba(36, 55, 130, 0.25);
+}
+
+
+/* Gráfico */
+.grafico-container {
+  margin-bottom: 35px; /* Mais espaço */
+  padding: 25px; /* Mais padding */
+  background-color: #ffffff; /* TEXT_LIGHT */
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+}
+.grafico-container h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px; /* Mais espaço */
+  color: #243782; /* BLUE */
+  font-size: 1.5em; /* Título do gráfico maior */
+  font-weight: 600;
+}
+.recharts-cartesian-axis-tick-value tspan {
+  font-size: 0.9em;
+  fill: #282b34; /* ANTHRACITE para texto dos eixos */
+}
+/* Cores das barras já definidas no JSX (fill="#ef4444" e fill="#f97316")
+   Se quiser usar as da paleta Stellantis:
+   Vermelho: #e94e24 (TANGERINE)
+   Laranja: #eca935 (ORANGE)
+   Pode atualizar diretamente no ListaResumos.jsx nas tags <Bar>
+*/
+
+
+/* Tabela de Resumos */
+.lista-resumos-tabela-container {
+  margin-top: 20px;
+}
+.lista-resumos-tabela-container h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #243782; /* BLUE */
+  font-size: 1.5em; /* Título da tabela maior */
+  font-weight: 600;
+}
+
+.resumos-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff; /* TEXT_LIGHT */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d1d5db; /* Cinza um pouco mais escuro para a borda da tabela */
+}
+.resumos-table th,
+.resumos-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.95em;
+  color: #282b34; /* ANTHRACITE */
+}
+.resumos-table th {
+  background-color: #eaf1fb; /* Azul muito claro, como user-info do formulário */
+  font-weight: 600;
+  color: #243782; /* BLUE */
+  white-space: nowrap;
+  border-bottom-width: 2px;
+  border-bottom-color: #243782; /* BLUE */
+}
+.resumos-table tbody tr:hover {
+  background-color: #f1f5f9; /* Cinza muito claro para hover */
+}
+.count-column {
+  text-align: center !important;
+  font-weight: bold;
+}
+.count-red { color: #e94e24; }   /* TANGERINE */
+.count-orange { color: #eca935; } /* ORANGE */
+
+.button-detalhes {
+  padding: 7px 14px; /* Ajustar padding */
+  background-color: #43aaa0; /* MINT */
+  color: #ffffff; /* TEXT_LIGHT */
+  border: none;
+  border-radius: 5px; /* Um pouco menos arredondado */
+  cursor: pointer;
+  font-size: 0.9em; /* Ligeiramente maior */
+  font-weight: 500;
+}
+.button-detalhes:hover { 
+  background-color: #368a80; /* MINT mais escuro */
+}
+
+.detalhes-row td {
+  background-color: #e6f7ff; /* Azul claro para detalhes */
+  padding: 18px; /* Mais padding */
+}
+.detalhes-content h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #243782; /* BLUE */
+  font-size: 1.15em; /* Um pouco maior */
+}
+.descricao-dia { margin-bottom: 12px; }
+.descricao-dia strong { 
+  color: #243782; /* BLUE */
+  font-weight: 600;
+}
+.descricao-dia p {
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding-left: 12px;
+  border-left: 3px solid #43aaa0; /* MINT para a borda */
+  font-style: normal; /* Remover itálico se não desejado */
+  color: #282b34; /* ANTHRACITE */
+  line-height: 1.5;
+}
+
+/* Estilos para Tabela Responsiva/Cartões (mantidos, mas cores podem ser ajustadas) */
+@media (max-width: 768px) {
+  .responsive-table thead {
+    display: none; 
+  }
+  .responsive-table tr {
+    display: block; 
+    margin-bottom: 18px; /* Mais espaço entre cartões */
+    border: 1px solid #d1d5db; /* Borda do cartão */
+    border-radius: 8px;
+    background-color: #ffffff; /* TEXT_LIGHT */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    padding: 10px; /* Padding interno do cartão */
+  }
+  .responsive-table td {
+    display: block; 
+    text-align: right; 
+    padding: 8px 10px 8px 50%; /* Ajustar padding para label */
+    position: relative; 
+    border-bottom: 1px dotted #e0e0e0; 
+  }
+  .responsive-table td:last-child {
+    border-bottom: none; 
+  }
+  .responsive-table td::before {
+    content: attr(data-label); 
+    position: absolute;
+    left: 10px; 
+    width: calc(50% - 20px); 
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left; 
+    font-weight: 600; /* Labels mais fortes */
+    color: #243782; /* BLUE para labels */
+    font-size: 0.9em;
+  }
+  .responsive-table td.count-column {
+    text-align: right; 
+  }
+  .responsive-table td[data-label="Ações:"] {
+    text-align: center; 
+    padding: 12px 10px; /* Mais padding para o botão */
+  }
+  .responsive-table td[data-label="Ações:"]::before {
+    display: none; 
+  }
+  .responsive-table .button-detalhes {
+    width: auto; 
+    padding: 8px 18px; /* Botão de detalhes um pouco maior */
+  }
+  .responsive-table tr.responsive-details-row td {
+    padding: 15px; /* Padding para os detalhes no cartão */
+    text-align: left; 
+    background-color: #f0f9ff; /* Fundo azul muito claro para detalhes */
+  }
+  .responsive-table tr.responsive-details-row td::before {
+    display: none; 
+  }
+}
+
+/* Mensagens de feedback (mantidas) */
+.loading-message, .error-message, .info-message {
+  padding: 12px 15px; margin: 20px 0; border-radius: 6px; text-align: center; font-size: 1em;
+  border-width: 1px; border-style: solid;
+}
+.loading-message { background-color: #e6f7ff; color: #005f8e; border-color: #b3e0ff;}
+.error-message { background-color: #fff0ed; color: #c5300b; border-color: #ffc9ba;} /* TANGERINE */
+.success-message { background-color: #e0f2f1; color: #004d40; border-color: #a7d8d4;} /* MINT */
+.info-message { background-color: #f0f0f0; color: #555; border-color: #ddd; }
+
+@media (max-width: 480px) {
+  .filtros-grafico-container { flex-direction: column; gap: 15px; }
+  .filtro-item { min-width: 100%; }
+  .lista-resumos-header h2 { font-size: 1.5em; }
+  .grafico-container h3, .lista-resumos-tabela-container h3 { font-size: 1.3em; }
+}

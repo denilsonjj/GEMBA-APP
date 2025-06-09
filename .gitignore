@@ -1,0 +1,49 @@
+# Dependências do Python e arquivos de ambiente virtual
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+*.egg-info/
+dist/
+build/
+*.log
+*.pot
+*.mo
+
+# Arquivos de banco de dados SQLite
+*.sqlite3
+*.db
+*.db-journal
+
+# Arquivos de backup de banco de dados específicos do seu projeto (adicione outros se necessário)
+gemba_appCorrompido.db
+gemba_appantigo.db
+gemba_problematico.db
+gemba_corrompido_MAI16.db
+gemba_app_schema_antigo.db
+gemba_backup_final_MAI16.db
+gemba_app_OLD.db
+
+# Dependências do Node.js / React (para a pasta gemba-front)
+/gemba-front/node_modules/
+/gemba-front/build/
+/gemba-front/.DS_Store
+/gemba-front/npm-debug.log*
+/gemba-front/yarn-debug.log*
+/gemba-front/yarn-error.log*
+/gemba-front/.pnp.*
+
+# Arquivos de configuração de IDEs e editores (opcional, mas recomendado)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sublime-workspace
+*.sublime-project
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db

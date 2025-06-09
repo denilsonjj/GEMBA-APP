@@ -1,0 +1,205 @@
+/* Formulario.css com Paleta Stellantis e Layout Focado no Dia Atual (Valor e Descrição) */
+
+/* ... (Estilos gerais do form-container, form-header, user-info, mensagens de feedback mantidos como antes) ... */
+.form-container { max-width: 900px; margin: 20px auto; padding: 20px; background-color: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6; font-family: Arial, sans-serif; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+.form-header { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #e0e0e0; }
+.form-header h2 { font-size: 1.6em; color: #243782; text-align: center; font-weight: 600; }
+.user-info { margin-bottom: 20px; padding: 12px 15px; background-color: #eaf1fb; border-left: 5px solid #243782; border-radius: 6px; font-size: 0.9em; }
+.user-info p { margin: 4px 0; color: #282b34; }
+.user-info strong { color: #243782; }
+.loading-message, .error-message, .success-message, .info-message { padding: 12px 15px; margin: 18px 0; border-radius: 6px; text-align: center; font-size: 0.95em; border-width: 1px; border-style: solid; }
+.loading-message { background-color: #e6f7ff; color: #005f8e; border-color: #b3e0ff;}
+.error-message { background-color: #fff0ed; color: #c5300b; border-color: #ffc9ba;}
+.success-message { background-color: #e0f2f1; color: #004d40; border-color: #a7d8d4;}
+.info-message { background-color: #f0f0f0; color: #555; border-color: #ddd; }
+.info-message.dia-nao-util { background-color: #fff8e1; color: #795548; border-color: #ffe082; padding: 15px; font-weight: 500; }
+
+/* Layout para o formulário do dia atual */
+.form-dia-atual { margin-top: 20px; }
+.titulo-dia-atual { font-size: 1.4em; color: #243782; margin-bottom: 20px; text-align: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; }
+
+.fato-item-dia-atual {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.fato-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+.fato-nome { font-weight: 600; color: #282b34; font-size: 1.05em; margin-right: 15px; }
+.limites-info-visual { font-size: 0.85em; color: #282b34; display: flex; flex-wrap: nowrap; gap: 10px; align-items: center; }
+.limite-item { display: flex; align-items: center; white-space: nowrap; }
+.limite-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; display: inline-block; border: 1px solid rgba(0,0,0,0.1); }
+.dot-green { background-color: #43aaa0; }
+.dot-orange { background-color: #eca935; }
+.dot-red { background-color: #e94e24; }
+
+.fato-inputs { display: flex; gap: 15px; flex-wrap: wrap; }
+.input-group-dia-atual { flex: 1; min-width: 200px; }
+.input-group-dia-atual label { display: block; font-size: 0.85em; color: #555; margin-bottom: 4px; }
+
+.form-input { /* Estilo base para inputs */
+  width: 100%; padding: 10px; border: 1px solid #ced4da;
+  border-radius: 6px; font-size: 0.95em; color: #282b34; box-sizing: border-box;
+}
+.form-input:focus {
+  border-color: #243782; box-shadow: 0 0 0 0.2rem rgba(36, 55, 130, 0.25);
+}
+.input-valor { text-align: center; }
+/* Classe para o novo input de descrição do dia (pode ser igual ao .form-input ou ter ajustes) */
+.input-descricao-dia { 
+  /* Se precisar de estilos específicos para o input de descrição do dia, coloque aqui.
+     Por exemplo, se quiser que seja um textarea ou tenha altura diferente.
+     Por enquanto, ele herdará de .form-input.
+  */
+}
+
+/* Cores de fundo para input de valor */
+.form-input-green { background-color: #d4f3ef; border-color: #43aaa0; }
+.form-input-orange { background-color: #fef4e4; border-color: #eca935; }
+.form-input-red { background-color: #fdecea; border-color: #e94e24; }
+.form-input-gray { background-color: #f3f4f6; }
+.form-input-error { background-color: #fdecea; border-color: #e94e24; color: #c5300b; }
+
+/* Formulário de Resumo (atualizado para apenas observação geral) */
+.resumo-form-container {
+  margin-top: 30px; padding: 20px; background-color: #ffffff;
+  border: 1px solid #d1d5db; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.resumo-form-container h3 { color: #243782; margin-bottom: 15px; }
+.resumo-info-counts {
+  margin-bottom: 20px; padding: 12px; background-color: #eaf1fb; border-radius: 6px;
+}
+.resumo-info-counts p { margin: 5px 0; font-size: 1.05em; color: #282b34; }
+.count-red { font-weight: bold; color: #e94e24; }
+.count-orange { font-weight: bold; color: #eca935; }
+.form-field { margin-bottom: 15px; }
+.form-field label {
+  display: block; margin-bottom: 6px; font-weight: 500;
+  color: #282b34; font-size: 0.95em;
+}
+.form-textarea { /* Usado para a observação geral da semana */
+  width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ced4da;
+  box-sizing: border-box; min-height: 100px; /* Altura maior para observação geral */
+  font-family: inherit; font-size: 0.95em; color: #282b34;
+}
+.form-textarea:focus {
+  border-color: #243782; box-shadow: 0 0 0 0.2rem rgba(36, 55, 130, 0.25);
+}
+
+/* Botões (estilos mantidos de antes) */
+.form-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; gap: 15px; }
+button, .button-submit, .button-voltar, .button-detalhes, .button-secondary {
+  padding: 10px 20px; margin-top: 10px; color: #ffffff; border: none;
+  border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+button:hover, .button-submit:hover, .button-voltar:hover, 
+.button-detalhes:hover, .button-secondary:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); opacity: 0.9;
+}
+button:disabled, .button-submit:disabled {
+  background-color: #adb5bd !important; cursor: not-allowed; box-shadow: none;
+}
+.button-submit { background-color: #243782; }
+.button-submit:hover { background-color: #1c2b66; }
+.button-secondary { background-color: #6c757d; }
+.button-secondary:hover { background-color: #5a6268; }
+
+@media (max-width: 768px) {
+  .form-container { margin: 10px; padding: 15px; }
+  .form-header h2 { font-size: 1.4em; }
+  .titulo-dia-atual { font-size: 1.2em; }
+  .fato-item-dia-atual { padding: 12px; }
+  .fato-info { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .fato-nome { font-size: 1em; }
+  .limites-info-visual { font-size: 0.8em; gap: 8px; }
+  .fato-inputs { flex-direction: column; gap: 10px; }
+  .input-group-dia-atual { min-width: 100%; }
+  .form-actions { flex-direction: column; gap: 10px; }
+  .form-actions button { width: 100%; margin-top: 5px; }
+}
+@media (max-width: 480px) {
+  .user-info { font-size: 0.85em; padding: 10px; }
+  .form-header h2 { font-size: 1.3em; }
+  .titulo-dia-atual { font-size: 1.1em; }
+}
+.modal-overlay-gemba {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Para ficar sobre outros elementos */
+}
+
+.modal-content-gemba {
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.modal-content-gemba h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #243782; /* BLUE Stellantis */
+  font-size: 1.4em;
+}
+
+.modal-content-gemba p {
+  margin-bottom: 25px;
+  font-size: 1em;
+  color: #282b34; /* ANTHRACITE Stellantis */
+  line-height: 1.6;
+}
+
+.modal-actions-gemba {
+  display: flex;
+  justify-content: space-around; /* Ou space-between, center */
+  gap: 15px;
+}
+
+/* Botão de Perigo (para deleção) */
+.button-danger-gemba {
+  padding: 10px 20px;
+  background-color: #e94e24; /* TANGERINE Stellantis */
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.button-danger-gemba:hover {
+  background-color: #c5300b; /* TANGERINE mais escuro */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Ajuste para botões dentro do modal se necessário */
+.modal-actions-gemba .button-secondary {
+  background-color: #6c757d; /* Cinza padrão para Cancelar */
+}
+.modal-actions-gemba .button-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Opcional: Estilo para o container do botão "Apagar Meus Dados" */
+.user-data-actions {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0; /* Linha separadora */
+  text-align: center;
+}

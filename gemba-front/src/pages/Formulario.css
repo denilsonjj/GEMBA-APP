@@ -1,0 +1,37 @@
+.form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    border: 2px solid #243782;
+    font-family: Arial, sans-serif;
+  }
+  
+  .input-group,
+  .registro-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #243782;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #1c2b66;
+  }
+  
