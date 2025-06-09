@@ -152,13 +152,13 @@
    }
    .filtro-label-admin {
      font-weight: 500;
-     color: #282b34; /* ANTHRACITE */
+     color: #282b34; 
      font-size: 0.9em; 
    }
    .filtro-select-admin {
      padding: 9px 12px; 
      border-radius: 6px;
-     border: 1px solid #ced4da; /* MEDIUM_GRAY_BORDER */
+     border: 1px solid #ced4da; 
      background-color: #fff;
      font-size: 0.95em; 
      box-shadow: inset 0 1px 2px rgba(0,0,0,0.07);
@@ -172,20 +172,20 @@
    }
    
    
-   /* Tabela de Registos do Admin */
+   
    .tabela-registos-wrapper {
      margin-top: 20px;
    }
    .tabela-registos-wrapper h3 {
      text-align: center;
      margin-bottom: 20px;
-     color: #243782; /* BLUE */
-     font-size: 1.5em; /* Ajustado */
+     color: #243782; 
+     font-size: 1.5em;
      font-weight: 600;
    }
    .table-responsive-container-admin {
      overflow-x: auto;
-     border: 1px solid #d1d5db; /* Borda da tabela */
+     border: 1px solid #d1d5db; 
      border-radius: 8px;
      background-color: #ffffff; 
    }
@@ -199,17 +199,17 @@
      padding: 10px 12px;
      text-align: left;
      font-size: 0.9em;
-     color: #282b34; /* ANTHRACITE */
-     border-bottom: 1px solid #e5e7eb; /* Linhas mais claras */
+     color: #282b34; 
+     border-bottom: 1px solid #e5e7eb; 
    }
    .admin-registos-table th {
-     background-color: #eaf1fb; /* Azul muito claro */
+     background-color: #eaf1fb; 
      font-weight: 600;
      text-transform: uppercase;
      font-size: 0.85em;
-     color: #243782; /* BLUE */
+     color: #243782; 
      border-bottom-width: 2px;
-     border-bottom-color: #243782; /* BLUE */
+     border-bottom-color: #243782; 
    }
    .admin-registos-table tbody tr:hover {
      background-color: #f1f5f9; /* Cinza muito claro para hover */
@@ -230,19 +230,19 @@
      }
      .admin-registos-table.responsive-table tr {
        display: block;
-       margin-bottom: 18px; /* Mais espaço entre cartões */
-       border: 1px solid #d1d5db; /* Borda do cartão */
+       margin-bottom: 18px; 
+       border: 1px solid #d1d5db; 
        border-radius: 8px;
        background-color: #ffffff;
        box-shadow: 0 2px 5px rgba(0,0,0,0.07);
-       padding: 10px; /* Padding interno do cartão */
+       padding: 10px; 
      }
      .admin-registos-table.responsive-table td {
        display: block;
        text-align: right;
-       padding: 8px 10px 8px 50%; /* Ajustar padding para label */
+       padding: 8px 10px 8px 50%; 
        position: relative;
-       border-bottom: 1px dotted #e0e0e0; /* Linha separadora suave */
+       border-bottom: 1px dotted #e0e0e0; 
      }
      .admin-registos-table.responsive-table td:last-child {
        border-bottom: none;
@@ -255,8 +255,8 @@
        padding-right: 10px;
        white-space: nowrap;
        text-align: left;
-       font-weight: 600; /* Labels mais fortes */
-       color: #243782; /* BLUE para labels */
+       font-weight: 600; 
+       color: #243782; 
        font-size: 0.9em;
      }
    }

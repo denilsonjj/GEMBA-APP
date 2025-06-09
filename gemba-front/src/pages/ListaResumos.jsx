@@ -1,101 +1,73 @@
-// ListaResumos.jsx
-import React, { useState, useEffect, useMemo } from 'react';
-import './ListaResumos.css'; // Mantém o seu CSS existente
 
+import React, { useState, useEffect, useMemo } from 'react';
+import "../styles/ListaResumos.css"; // Estilos específicos para a página
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
+
+import TabelaRegistos from '../components/TabelaRegistros'; // Importa o componente TabelaRegistos
 
 const API_BASE_URL = 'http://127.0.0.1:5001';
 
-const DIAS_SEMANA_REGISTRO_LOCAL = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-const DIAS_SEMANA_RESUMO = [...DIAS_SEMANA_REGISTRO_LOCAL, "Outro"];
 
 const getSemanaISOFromTimestamp = (timestamp) => {
-  if (!timestamp) return "Semana Desconhecida";
-  const datePart = timestamp.split(" ")[0];
-  const data = new Date(datePart);
-
-  if (isNaN(data.getTime())) {
-    // console.warn("Timestamp inválido para getSemanaISOFromTimestamp:", timestamp);
-    return "Semana Inválida";
-  }
-
-  data.setHours(0, 0, 0, 0);
-  data.setDate(data.getDate() + 3 - (data.getDay() + 6) % 7);
-  const semana1 = new Date(data.getFullYear(), 0, 4);
-  const weekNumber = (1 + Math.round(((data.getTime() - semana1.getTime()) / 86400000 - 3 + (semana1.getDay() + 6) % 7) / 7));
-  return `${data.getFullYear()}-W${weekNumber.toString().padStart(2, '0')}`;
+    if (!timestamp) return "Semana Desconhecida";
+    const datePart = timestamp.split(" ")[0];
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(datePart)) return "Data Inválida";
+    const parts = datePart.split('-');
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+    const date = new Date(Date.UTC(year, month, day));
+    if (isNaN(date.getTime())) return "Semana Inválida";
+    const dayOfWeekISO = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
+    date.setUTCDate(date.getUTCDate() - dayOfWeekISO + 4);
+    const yearISO = date.getUTCFullYear();
+    const firstDayOfYear = new Date(Date.UTC(yearISO, 0, 1));
+    const dayOfYear = Math.floor((date.getTime() - firstDayOfYear.getTime()) / 86400000) + 1;
+    const weekNumber = Math.floor((dayOfYear - 1) / 7) + 1;
+    return `${yearISO}-W${weekNumber.toString().padStart(2, '0')}`;
 };
 
-function ListaResumos({ onVoltar }) {
-  const [resumosAgregados, setResumosAgregados] = useState([]);
-  const [todosOsRegistos, setTodosOsRegistos] = useState([]);
-  
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [resumoExpandido, setResumoExpandido] = useState(null);
-  
-  const [availableWeeks, setAvailableWeeks] = useState([]);
-  const [selectedWeekFilter, setSelectedWeekFilter] = useState("todas");
+
+// ListaResumos agora espera a prop 'usuarioLogado' para passar para TabelaRegistos
+function ListaResumos({ usuarioLogado, onVoltar }) { 
+  console.log('usuarios: ', usuarioLogado)
+  const [todosOsRegistosParaGrafico, setTodosOsRegistosParaGrafico] = useState([]);
+  const [isLoadingGrafico, setIsLoadingGrafico] = useState(false);
+  const [errorPage, setErrorPage] = useState(null); // Erro geral para a página
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
+    const fetchDataParaGrafico = async () => {
+      setIsLoadingGrafico(true);
+      setErrorPage(null); 
       try {
-        const resResumos = await fetch(`${API_BASE_URL}/resumos`);
-        if (!resResumos.ok) throw new Error(`Erro ao buscar resumos agregados: ${resResumos.statusText}`);
-        const dataResumos = await resResumos.json();
-        const dataResumosOrdenada = dataResumos.sort((a, b) => a.semana.localeCompare(b.semana));
-        setResumosAgregados(dataResumosOrdenada);
-
         const resRegistos = await fetch(`${API_BASE_URL}/dados`);
-        if (!resRegistos.ok) throw new Error(`Erro ao buscar todos os registos: ${resRegistos.statusText}`);
-        const dataRegistos = await resRegistos.json();
-        setTodosOsRegistos(dataRegistos);
-
-        if (dataRegistos.length > 0) {
-            const semanasUnicas = [...new Set(dataRegistos.map(reg => getSemanaISOFromTimestamp(reg.data_registro)))]
-                                .filter(semana => semana !== "Semana Desconhecida" && semana !== "Semana Inválida")
-                                .sort((a,b) => b.localeCompare(a));
-            setAvailableWeeks(semanasUnicas);
+        if (!resRegistos.ok) {
+          const errData = await resRegistos.json().catch(() => ({erro: `Erro HTTP: ${resRegistos.status}`}));
+          throw new Error(errData.erro || `Erro ao buscar dados para o gráfico: ${resRegistos.statusText}`);
         }
-
+        const dataRegistosBackend = await resRegistos.json();
+        setTodosOsRegistosParaGrafico(dataRegistosBackend);
       } catch (err) {
-        console.error("Erro ao buscar dados:", err);
-        setError(err.message || "Não foi possível carregar os dados necessários.");
+        console.error("Erro ao buscar dados para o gráfico em ListaResumos:", err);
+        setErrorPage(err.message || "Não foi possível carregar os dados para o gráfico.");
       } finally {
-        setIsLoading(false);
+        setIsLoadingGrafico(false);
       }
     };
-    fetchData();
-  }, []);
-
-  const toggleDetalhesResumo = (resumoId) => {
-    setResumoExpandido(resumoExpandido === resumoId ? null : resumoId);
-  };
-
+    fetchDataParaGrafico();
+  }, []); // Roda apenas uma vez para buscar os dados do gráfico
+  
   const dadosGrafico = useMemo(() => {
-    if (todosOsRegistos.length === 0) {
-        return [];
-    }
-
-    const registosParaGrafico = selectedWeekFilter === "todas"
-      ? todosOsRegistos
-      : todosOsRegistos.filter(reg => {
-          const semanaDoRegisto = getSemanaISOFromTimestamp(reg.data_registro);
-          return semanaDoRegisto === selectedWeekFilter;
-        });
+    if (todosOsRegistosParaGrafico.length === 0) return [];
+    const registosParaGrafico = todosOsRegistosParaGrafico; 
     
     const agrupadoPorFacto = registosParaGrafico.reduce((acc, reg) => {
       const nomeFacto = reg.nome_fato; 
       const cor = reg.cor ? reg.cor.toLowerCase() : null; 
-
-      if (!nomeFacto) { 
-        return acc;
-      }
-
+      if (!nomeFacto) return acc;
       if (!acc[nomeFacto]) {
         acc[nomeFacto] = { name: nomeFacto, Vermelho: 0, Laranja: 0 };
       }
@@ -103,153 +75,62 @@ function ListaResumos({ onVoltar }) {
       if (cor === 'laranja') acc[nomeFacto].Laranja++;
       return acc;
     }, {});
-    
-    const resultadoGrafico = Object.values(agrupadoPorFacto).sort((a,b) => a.name.localeCompare(b.name));
-    return resultadoGrafico;
-  }, [todosOsRegistos, selectedWeekFilter]);
+    return Object.values(agrupadoPorFacto).sort((a,b) => a.name.localeCompare(b.name));
+  }, [todosOsRegistosParaGrafico]);
 
-  const alturaGrafico = useMemo(() => {
-    const baseHeight = 200; 
-    const heightPerBar = 30;
-    const numFactos = dadosGrafico.length;
-    return numFactos > 0 ? Math.max(baseHeight, numFactos * heightPerBar + 50) : baseHeight;
+  const dataMaxGrafico = useMemo(() => {
+    if (!dadosGrafico || dadosGrafico.length === 0) return 10;
+    let max = 0;
+    dadosGrafico.forEach(item => {
+        if (item.Vermelho > max) max = item.Vermelho;
+        if (item.Laranja > max) max = item.Laranja;
+    });
+    return max > 0 ? Math.ceil(max * 1.1) : 10; 
   }, [dadosGrafico]);
 
-
-  if (isLoading) {
-    return <p className="loading-message">A carregar dados...</p>;
-  }
-  if (error) {
-    return <p className="error-message">{error}</p>;
+  if (errorPage) {
+    // Usando a classe de feedback do AdminPainel/TabelaRegistos se o CSS for compartilhado/global
+    return <p className="error-message admin-feedback">{errorPage}</p>; 
   }
 
   return (
-    <div className="lista-resumos-container">
+    <div className="lista-resumos-container"> {/* Container principal da página */}
       <div className="lista-resumos-header">
-        <h2>Histórico de Resumos Semanais</h2>
-        <button onClick={onVoltar} className="button-voltar">
-          Voltar ao Formulário
-        </button>
+        <h2>Visão Geral de Tendências e Histórico de Registos</h2> {/* Título ajustado */}
+        {onVoltar && <button onClick={onVoltar} className="button-voltar">Voltar</button>}
       </div>
 
-      <div className="filtros-grafico-container">
-        <div className="filtro-item">
-          <label htmlFor="filtro-semana-grafico" className="filtro-label">Visualizar Gráfico para Semana:</label>
-          <select 
-            id="filtro-semana-grafico" 
-            value={selectedWeekFilter} 
-            onChange={(e) => setSelectedWeekFilter(e.target.value)}
-            className="filtro-select"
-          >
-            <option value="todas">Todas as Semanas (Agregado)</option>
-            {availableWeeks.map(semana => (
-              <option key={semana} value={semana}>{semana}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
+      {/* Secção do Gráfico Radar */}
       <div className="grafico-container">
-        <h3>Ocorrências por Facto ({selectedWeekFilter === "todas" ? "Período Completo" : `Semana: ${selectedWeekFilter}`})</h3>
-        {dadosGrafico.length > 0 ? (
-          <ResponsiveContainer width="100%" height={alturaGrafico}>
-            <BarChart 
-              data={dadosGrafico} 
-              layout="vertical"
-              margin={{
-                top: 5, 
-                right: 30,
-                left: 5,
-                bottom: 20 
-              }}
-              barGap={4}
-              barCategoryGap="20%"
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" allowDecimals={false} tick={{fontSize: '0.8em'}} />
-              <YAxis 
-                dataKey="name" 
-                type="category" 
-                width={120} 
-                tick={{fontSize: '0.8em'}}
-                interval={0} 
-                tickFormatter={(value) => value.length > 20 ? `${value.substring(0, 18)}...` : value}
-              />
-              <Tooltip 
-                formatter={(value, name, props) => [`${value} ocorrências`, name.startsWith('Zona') ? name : props.payload.name ]}
-                wrapperStyle={{fontSize: '0.9em'}}
-              />
-              <Legend wrapperStyle={{fontSize: '0.9em', paddingTop: '10px'}}/>
-              <Bar dataKey="Vermelho" fill="#ef4444" name="Zona Vermelha" barSize={12} />
-              <Bar dataKey="Laranja" fill="#f97316" name="Zona Laranja" barSize={12} />
-            </BarChart>
+        <h3>Tendências de Ocorrências por Fato (Período Completo)</h3>
+        {isLoadingGrafico ? (
+            <p className="loading-message admin-feedback">A carregar dados para o gráfico...</p>
+        ) : dadosGrafico.length > 0 ? (
+          <ResponsiveContainer width="100%" height={500}> 
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dadosGrafico} margin={{ top: 20, right: 50, bottom: 20, left: 50 }}>
+              <PolarGrid />
+              <PolarAngleAxis dataKey="name" tick={{fontSize: '0.7em'}} tickFormatter={(value) => value.length > 18 ? `${value.substring(0, 16)}...` : value} />
+              <PolarRadiusAxis angle={30} domain={[0, dataMaxGrafico]} allowDecimals={false} tick={{fontSize: '0.8em'}}/>
+              <Tooltip formatter={(value, name) => [`${value} ocorrências`, `${name}`]} wrapperStyle={{fontSize: '0.9em'}}/>
+              <Legend wrapperStyle={{fontSize: '0.9em', paddingTop: '30px'}}/>
+              <Radar name="Zona Vermelha" dataKey="Vermelho" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
+              <Radar name="Zona Laranja" dataKey="Laranja" stroke="#f97316" fill="#f97316" fillOpacity={0.6} />
+            </RadarChart>
           </ResponsiveContainer>
         ) : (
-          !isLoading && <p className="info-message">Sem dados para exibir no gráfico com a semana selecionada.</p>
+          !isLoadingGrafico && <p className="info-message admin-feedback">Sem dados para exibir no gráfico.</p>
         )}
       </div>
 
-      {/* Tabela de Resumos Agregados */}
-      {resumosAgregados.length > 0 && (
-        <div className="table-responsive-container lista-resumos-tabela-container">
-          <h3>Detalhes dos Resumos Semanais (Agregados Gerais)</h3>
-          {/* A classe 'responsive-table' será usada pelo CSS para o layout de cartões */}
-          <table className="resumos-table responsive-table">
-            <thead>
-              <tr>
-                <th>Semana</th>
-                <th>Utilizador</th>
-                <th>Cargo</th>
-                <th className="count-column">Qtd. Vermelho</th>
-                <th className="count-column">Qtd. Laranja</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resumosAgregados.map((resumo) => (
-                <React.Fragment key={resumo.resumo_id}>
-                  <tr>
-                    {/* Adicionar atributos data-label */}
-                    <td data-label="Semana:">{resumo.semana}</td>
-                    <td data-label="Utilizador:">{resumo.nome_usuario}</td>
-                    <td data-label="Cargo:">{resumo.cargo_usuario}</td>
-                    <td data-label="Qtd. Vermelho:" className="count-column count-red">{resumo.qtd_vermelho}</td>
-                    <td data-label="Qtd. Laranja:" className="count-column count-orange">{resumo.qtd_laranja}</td>
-                    <td data-label="Ações:">
-                      <button onClick={() => toggleDetalhesResumo(resumo.resumo_id)} className="button-detalhes">
-                        {resumoExpandido === resumo.resumo_id ? 'Ocultar' : 'Detalhes'}
-                      </button>
-                    </td>
-                  </tr>
-                  {resumoExpandido === resumo.resumo_id && (
-                    <tr className="detalhes-row responsive-details-row">
-                      <td colSpan="6"> {/* colSpan ainda é útil para o layout de tabela em ecrãs maiores */}
-                        <div className="detalhes-content">
-                          <h4>Descrições Diárias (Semana: {resumo.semana}):</h4>
-                          {DIAS_SEMANA_RESUMO.map(dia => {
-                            const diaKeyBackend = `descricao_${dia.toLowerCase().replace('ç', 'c').replace('á', 'a')}`;
-                            return (
-                                <div key={dia} className="descricao-dia">
-                                    <strong>{dia}:</strong>
-                                    <p>{resumo[diaKeyBackend] || <em>Sem descrição</em>}</p>
-                                </div>
-                            );
-                          })}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-       {resumosAgregados.length === 0 && !isLoading && (
-        <p className="info-message">Nenhum resumo semanal agregado encontrado.</p>
-      )}
+      {/* Secção para a Tabela de Registos Detalhados */}
+      <div className="historico-registos-detalhados-container" style={{marginTop: '40px'}}>
+        {/* Renderiza o componente TabelaRegistos e passa a prop usuarioLogado */}
+     
+        <TabelaRegistos usuarioLogado={usuarioLogado} />
+      </div>
     </div>
   );
 }
 
 export default ListaResumos;
+''

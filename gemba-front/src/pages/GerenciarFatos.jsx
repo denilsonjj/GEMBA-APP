@@ -1,45 +1,42 @@
-// GerenciarFatos.jsx
+
 import React, { useState, useEffect, useCallback } from 'react';
-import './GerenciarFatos.css'; // Criaremos este arquivo CSS
+import '../styles/GerenciarFatos.css'; // CSS específico para este componente
+
+// Importar toast para notificações
+import { toast } from 'react-toastify';
+
+// Ícones para feedback (já não são necessários para mensagens inline, mas podem ser usados nos toasts se personalizar)
+// const CheckIcon = () => ( /* ... */ );
+// const ExclamationTriangleIcon = () => ( /* ... */ );
 
 const API_BASE_URL = 'http://127.0.0.1:5001';
-
-// Ícones para feedback
-const CheckIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="feedback-icon">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15L15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-const ExclamationTriangleIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="feedback-icon">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-  </svg>
-);
 
 function GerenciarFatos({ onVoltar }) {
   const [fatosEditaveis, setFatosEditaveis] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  // Estado para feedback por facto: { fatoId: { type: 'success'/'error', message: '...' } }
-  const [feedbackPorFato, setFeedbackPorFato] = useState({}); 
+  // Estado 'error' global pode ser mantido para erros de carregamento inicial, ou também substituído por toast.
+  // Por agora, vamos mantê-lo para o erro de carregamento inicial.
+  const [errorCarregamento, setErrorCarregamento] = useState(null); 
+  // Estado para controlar o loading de cada botão individualmente
+  const [loadingPorFato, setLoadingPorFato] = useState({});
+
 
   const carregarFatos = useCallback(async () => {
     setIsLoading(true);
-    setError(null);
-    setFeedbackPorFato({});
+    setErrorCarregamento(null);
+    // feedbackPorFato removido
     try {
       const response = await fetch(`${API_BASE_URL}/fatos`);
       if (!response.ok) {
-        throw new Error(`Erro ao buscar fatos: ${response.statusText}`);
+        const errData = await response.json().catch(() => ({erro: `Erro HTTP: ${response.status}`}));
+        throw new Error(errData.erro || `Erro ao buscar factos: ${response.statusText}`);
       }
       const data = await response.json();
-      // Adicionar uma cópia dos valores originais para detetar alterações, se necessário,
-      // ou simplesmente permitir que o utilizador edite e guarde.
-      // Para simplificar, vamos apenas carregar os dados para edição.
       setFatosEditaveis(data.sort((a, b) => a.nome.localeCompare(b.nome)));
     } catch (err) {
-      console.error("Erro ao buscar fatos:", err);
-      setError(err.message || "Não foi possível carregar os fatos para edição.");
+      console.error("Erro ao buscar factos:", err);
+      toast.error(err.message || "Não foi possível carregar os factos para edição.");
+      setErrorCarregamento(err.message || "Não foi possível carregar os factos para edição.");
     } finally {
       setIsLoading(false);
     }
@@ -55,44 +52,34 @@ function GerenciarFatos({ onVoltar }) {
         fato.id === idFato ? { ...fato, [campo]: valor } : fato
       )
     );
-    // Limpar feedback específico desse facto ao editar
-    setFeedbackPorFato(prevFeedback => ({ ...prevFeedback, [idFato]: null }));
   };
 
   const handleGuardarFato = async (idFato) => {
     const fatoParaGuardar = fatosEditaveis.find(f => f.id === idFato);
     if (!fatoParaGuardar) return;
 
-    // Limpar feedback anterior para este facto
-    setFeedbackPorFato(prevFeedback => ({ ...prevFeedback, [idFato]: { isLoading: true } }));
-    setError(null); // Limpar erro global
+    // Ativar loading para este facto específico
+    setLoadingPorFato(prev => ({ ...prev, [idFato]: true }));
 
-    // Apenas envia os campos que podem ser atualizados
     const payload = {
       nome: fatoParaGuardar.nome,
-      limite_verde: fatoParaGuardar.limite_verde !== '' ? Number(fatoParaGuardar.limite_verde) : null,
-      limite_laranja: fatoParaGuardar.limite_laranja !== '' ? Number(fatoParaGuardar.limite_laranja) : null,
-      limite_vermelho: fatoParaGuardar.limite_vermelho !== '' ? Number(fatoParaGuardar.limite_vermelho) : null,
+      limite_verde: fatoParaGuardar.limite_verde !== '' && fatoParaGuardar.limite_verde !== null ? Number(fatoParaGuardar.limite_verde) : null,
+      limite_laranja: fatoParaGuardar.limite_laranja !== '' && fatoParaGuardar.limite_laranja !== null ? Number(fatoParaGuardar.limite_laranja) : null,
+      limite_vermelho: fatoParaGuardar.limite_vermelho !== '' && fatoParaGuardar.limite_vermelho !== null ? Number(fatoParaGuardar.limite_vermelho) : null,
     };
     
-    // Validar se os limites são números se não forem nulos
     if ((payload.limite_verde !== null && isNaN(payload.limite_verde)) ||
         (payload.limite_laranja !== null && isNaN(payload.limite_laranja)) ||
         (payload.limite_vermelho !== null && isNaN(payload.limite_vermelho))) {
-      setFeedbackPorFato(prevFeedback => ({
-        ...prevFeedback,
-        [idFato]: { type: 'error', message: 'Limites devem ser números válidos.', isLoading: false }
-      }));
+      toast.error('Limites devem ser números válidos ou vazios.');
+      setLoadingPorFato(prev => ({ ...prev, [idFato]: false }));
       return;
     }
      if (!payload.nome || payload.nome.trim() === "") {
-      setFeedbackPorFato(prevFeedback => ({
-        ...prevFeedback,
-        [idFato]: { type: 'error', message: 'O nome do facto não pode estar vazio.', isLoading: false }
-      }));
+      toast.error('O nome do facto não pode estar vazio.');
+      setLoadingPorFato(prev => ({ ...prev, [idFato]: false }));
       return;
     }
-
 
     try {
       const response = await fetch(`${API_BASE_URL}/fatos/${idFato}`, {
@@ -105,34 +92,32 @@ function GerenciarFatos({ onVoltar }) {
       if (!response.ok) {
         throw new Error(resultado.erro || `Erro do servidor: ${response.status}`);
       }
-      setFeedbackPorFato(prevFeedback => ({
-        ...prevFeedback,
-        [idFato]: { type: 'success', message: resultado.mensagem || 'Facto atualizado!', isLoading: false }
-      }));
-      // Opcional: Recarregar todos os factos para garantir consistência,
-      // mas a atualização local do estado já reflete a mudança.
+      toast.success(resultado.mensagem || `Facto "${fatoParaGuardar.nome}" atualizado com sucesso!`);
+      // Opcional: Se quiser recarregar todos os factos após uma atualização bem-sucedida
+      // para garantir que a lista está 100% sincronizada com o backend (ex: se houver validações no backend que alterem os dados).
       // carregarFatos(); 
     } catch (err) {
       console.error(`Erro ao guardar facto ${idFato}:`, err);
-      setFeedbackPorFato(prevFeedback => ({
-        ...prevFeedback,
-        [idFato]: { type: 'error', message: err.message || 'Falha ao atualizar.', isLoading: false }
-      }));
+      toast.error(err.message || `Falha ao atualizar o facto "${fatoParaGuardar.nome}".`);
+    } finally {
+      setLoadingPorFato(prev => ({ ...prev, [idFato]: false }));
     }
   };
 
-  if (isLoading && fatosEditaveis.length === 0) { // Mostrar loading apenas na carga inicial
-    return <p className="loading-message">A carregar fatos para edição...</p>;
+  // Mostrar loading apenas na carga inicial
+  if (isLoading && fatosEditaveis.length === 0) { 
+    return <p className="loading-message">A carregar factos para edição...</p>;
   }
 
-  if (error && fatosEditaveis.length === 0) { // Mostrar erro apenas se a carga inicial falhar
-    return <p className="error-message">{error}</p>;
+  // Mostrar erro apenas se a carga inicial falhar e não houver factos para exibir
+  if (errorCarregamento && fatosEditaveis.length === 0) { 
+    return <p className="error-message global-error-message">{errorCarregamento}</p>;
   }
 
   return (
     <div className="gerenciar-fatos-container">
       <div className="gerenciar-fatos-header">
-        <h2>Gerir Fatos Observáveis e Limites</h2>
+        <h2>Gerir Factos Observáveis e Limites</h2>
         {onVoltar && (
             <button onClick={onVoltar} className="button-voltar">
             Voltar
@@ -140,10 +125,11 @@ function GerenciarFatos({ onVoltar }) {
         )}
       </div>
 
-      {error && <p className="error-message global-error-message">{error}</p>}
+      {/* Mensagem de erro global removida, pois os toasts tratarão disso */}
+      {/* {errorCarregamento && <p className="error-message global-error-message">{errorCarregamento}</p>} */}
 
       {fatosEditaveis.length === 0 && !isLoading && (
-        <p className="info-message">Nenhum facto encontrado para edição.</p>
+        <p className="info-message">Nenhum facto encontrado para edição. Pode precisar de os criar primeiro se a funcionalidade existir, ou verificar o backend.</p>
       )}
 
       <div className="lista-fatos-editaveis">
@@ -197,22 +183,16 @@ function GerenciarFatos({ onVoltar }) {
             <div className="fato-actions">
               <button 
                 onClick={() => handleGuardarFato(fato.id)} 
-                disabled={feedbackPorFato[fato.id]?.isLoading}
+                disabled={loadingPorFato[fato.id]} // Desabilitar botão enquanto este facto específico está a ser guardado
                 className="button-guardar-fato"
               >
-                {feedbackPorFato[fato.id]?.isLoading ? 'A guardar...' : 'Guardar Alterações'}
+                {loadingPorFato[fato.id] ? 'A guardar...' : 'Guardar Alterações'}
               </button>
             </div>
-            {feedbackPorFato[fato.id] && !feedbackPorFato[fato.id]?.isLoading && (
-              <div className={`feedback-message-fato ${feedbackPorFato[fato.id].type}`}>
-                {feedbackPorFato[fato.id].type === 'success' ? <CheckIcon /> : <ExclamationTriangleIcon />}
-                <span>{feedbackPorFato[fato.id].message}</span>
-              </div>
-            )}
+            {/* JSX para feedbackPorFato removido */}
           </div>
         ))}
       </div>
-      {/* Futuramente, um botão para adicionar novo facto poderia vir aqui */}
     </div>
   );
 }
