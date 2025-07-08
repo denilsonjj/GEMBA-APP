@@ -1,12 +1,11 @@
-// TabelaRegistros.jsx
-// Local: src/components/TabelaRegistros.jsx (ou conforme sua estrutura)
+
 import React, { useState, useEffect, useMemo } from "react";
-import "../styles/TabelaDeRegistros.css"; // Estilos específicos para o componente
+import "../styles/TabelaDeRegistros.css"; 
 import { toast } from "react-toastify";
 
-const API_BASE_URL = "http://127.0.0.1:5001";
+const API_BASE_URL = 'https://denilsonjj.pythonanywhere.com';
 
-// Componente Modal de Confirmação Simples
+
 const ConfirmationModal = ({
   isOpen,
   onClose,
@@ -19,7 +18,7 @@ const ConfirmationModal = ({
   if (!isOpen) return null;
 
   return (
-    // Estas classes devem corresponder ao seu TabelaDeRegistros.css ou Formulario.css
+   
     <div className="modal-overlay-gemba">
       <div className="modal-content-gemba">
         <h4>{title}</h4>

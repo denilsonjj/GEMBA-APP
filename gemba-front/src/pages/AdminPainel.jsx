@@ -4,7 +4,7 @@ import "../styles/AdminPainel.css";
 import { toast } from 'react-toastify';
 import TabelaRegistos from '../components/TabelaRegistros';
 
-const API_BASE_URL = 'http://127.0.0.1:5001';
+const API_BASE_URL = 'https://denilsonjj.pythonanywhere.com';
 
 function AdminPainel({ onVoltar, usuarioLogado }) { 
  

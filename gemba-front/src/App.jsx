@@ -10,7 +10,7 @@ import AdminPainel from "./pages/AdminPainel";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_BASE_URL = 'http://127.0.0.1:5001';
+const API_BASE_URL = 'https://denilsonjj.pythonanywhere.com';
 const USER_STORAGE_KEY = 'gembaAppUser'; // Chave para o localStorage
 
 // Cores da Paleta (para referência nos estilos CSS)

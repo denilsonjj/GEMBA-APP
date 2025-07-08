@@ -7,8 +7,7 @@ import {
 } from 'recharts';
 
 import TabelaRegistos from '../components/TabelaRegistros'; // Importa o componente TabelaRegistos
-
-const API_BASE_URL = 'http://127.0.0.1:5001';
+const API_BASE_URL = 'https://denilsonjj.pythonanywhere.com';
 
 
 const getSemanaISOFromTimestamp = (timestamp) => {

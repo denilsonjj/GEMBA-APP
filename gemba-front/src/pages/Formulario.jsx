@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "../styles/Formulario.css"; 
 import { toast } from 'react-toastify';
 
-const API_BASE_URL = 'http://127.0.0.1:5001';
+const API_BASE_URL = 'https://denilsonjj.pythonanywhere.com';
 const DIAS_SEMANA_REGISTRO = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
 const getSemanaISOAtual = () => {

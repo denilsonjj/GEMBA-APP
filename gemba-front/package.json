@@ -1,11 +1,15 @@
 {
   "name": "gemba-front",
   "version": "1.0.0",
+  
+  "homepage": "https://denilsonjj.github.io/gemba-app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "type": "module"
+    "type": "module",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "pnpm": "^10.12.1",
@@ -17,6 +21,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
+    "gh-pages": "^6.1.1", 
     "vite": "^4.0.0"
   }
 }
