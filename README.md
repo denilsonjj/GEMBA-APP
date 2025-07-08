@@ -41,7 +41,7 @@ Este é um projeto full-stack que utiliza as seguintes tecnologias:
 
 Antes de começar, garanta que tem o seguinte software instalado na sua máquina:
 
-  * [Python 3.8+](https://www.python.org/downloads/)
+  * [Python 3.12+](https://www.python.org/downloads/)
   * [Node.js e npm](https://nodejs.org/) (ou Yarn)
   * Um editor de código como [Visual Studio Code](https://code.visualstudio.com/)
 
