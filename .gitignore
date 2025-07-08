@@ -47,3 +47,4 @@ gemba_app_OLD.db
 # Arquivos de sistema operacional
 .DS_Store
 Thumbs.db
+.env

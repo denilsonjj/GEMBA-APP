@@ -9,7 +9,9 @@ import io
 import logging
 import requests 
 import os 
+from dotenv import load_dotenv 
 
+load_dotenv() 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s (%(filename)s:%(lineno)d)')
 
@@ -17,8 +19,8 @@ app = Flask(__name__)
 CORS(app)
 
 # --- TELEGRAM CONFIG ---
-TELEGRAM_BOT_TOKEN = os.getenv("7805481519:AAEAejmXYC7bPF_Tedk--DDDXJ0JRVPYIEY") 
-TELEGRAM_CHAT_ID = os.getenv("-4807193335") 
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") 
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 try:
     models.create_tables()
